@@ -26,13 +26,15 @@
             background-color: #003366;
             color: white;
             padding: 20px;
+            position: relative;
             display: flex;
-            justify-content: space-between; /* Ensures space between elements */
+            justify-content: center; /* Centers the headline text */
             align-items: center;
         }
         .header-content {
             width: 100%;
-            text-align: center; /* Centers the headline text */
+            text-align: center;
+            z-index: 1; /* Ensures the h1 text appears on top */
         }
         header h1 {
             color: white;
@@ -41,18 +43,21 @@
             margin: 0;
             display: inline-block; /* Inline-block for alignment */
         }
-        header img {
-            height: 60px; /* Adjust based on your preference */
+        .header-image {
             position: absolute;
-            right: 20px; /* Positions the logo at the right */
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            text-align: right;
+            z-index: 2; /* Ensures the image and phone number overlap the h1 */
+        }
+        .header-image img {
+            height: 60px; /* Adjust based on your preference */
         }
         .phone-number {
             color: white;
             font-size: 18px;
-            text-align: right;
-            position: absolute;
-            right: 20px;
-            top: 80px; /* Positioning right below the logo */
+            margin-top: 10px;
         }
         .container {
             max-width: 800px;
@@ -188,8 +193,11 @@
         <div class="header-content">
             <h1 class="center-text">Sell Your Centennial Commons Home<br>FASTER and for MORE MONEY — Guaranteed!</h1>
         </div>
-        <img src="images/eXp Realty - White-01.png">
-        <p class="phone-number">888.959.9461</p>
+        <div class="header-image">
+            <img src="images/eXp Realty - White-01.png" alt="Logo">
+            <p class="phone-number">888.959.9461</p>
+            <img src="images/nar_membershipmark_white.png"><img src="images/qual-housing-logowhite-500.png">
+        </div>
     </header>
 
     <div class="container">
