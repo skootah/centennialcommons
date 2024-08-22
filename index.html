@@ -267,41 +267,49 @@
             <input type="submit" value="GET MORE INFO!">
         </form>
     </div>
-    </div>
 
     <!-- Move the footer below the lead capture form -->
     <footer>
         <p>&copy; 2024 Scott Ferguson. All Rights Reserved.</p>
     </footer>
 
+    <!-- Script Section for Form Handling -->
     <script>
         document.getElementById('lead-form').addEventListener('submit', function(e) {
             e.preventDefault();
 
-            var formData = new FormData(this);
-            var jsonData = {};
+            grecaptcha.ready(function() {
+                grecaptcha.execute('6Le2Gy0qAAAAAJIso9RvFj37JVQfTyXHzTwaeCET', {action: 'submit'}).then(function(token) {
+                    var form = document.getElementById('lead-form');
 
-            formData.forEach((value, key) => {
-                jsonData[key] = value;
-            });
+                    var formData = new FormData(form);
+                    var jsonData = {};
 
-            console.log(JSON.stringify(jsonData));
+                    formData.forEach((value, key) => {
+                        jsonData[key] = value;
+                    });
 
-            fetch('https://late-mountain-2037.skootah.workers.dev', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(jsonData)
-            })
-            .then(response => response.json())
-            .then(data => {
-                alert('Thank you for your submission!');
-                this.reset();
-            })
-            .catch(error => {
-                console.error('Error:', error);
-                alert('There was an error submitting your form. Please try again later.');
+                    jsonData['g-recaptcha-response'] = token;
+
+                    console.log(JSON.stringify(jsonData));
+
+                    fetch('https://late-mountain-2037.skootah.workers.dev', {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(jsonData)
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        alert('Thank you for your submission!');
+                        form.reset();
+                    })
+                    .catch(error => {
+                        console.error('Error:', error);
+                        alert('There was an error submitting your form. Please try again later.');
+                    });
+                });
             });
         });
     </script>
